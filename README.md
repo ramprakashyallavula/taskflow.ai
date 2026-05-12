@@ -56,6 +56,11 @@ git clone <your-repo-url>
 cd taskflow-ai
 ```
 
+If your parent folder path contains spaces (for example `New project`), always quote it:
+```bash
+cd "/Users/ramprakashyallavula/Documents/New project/taskflow-ai"
+```
+
 ### 2) Backend setup
 ```bash
 cd backend
@@ -99,7 +104,20 @@ docker compose up --build
 Services:
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:8000`
-- Postgres: `localhost:5432`
+- Postgres: `localhost:5433`
+
+## Troubleshooting
+
+### `zsh: no such file or directory .../New`
+This happens when your path contains spaces and the command is unquoted.
+
+Use:
+```bash
+cd "/Users/ramprakashyallavula/Documents/New project/taskflow-ai"
+```
+
+### Docker port conflict on `5432`
+If local Postgres is already using `5432`, this project maps Docker Postgres to host `5433`.
 
 ## API Examples
 
@@ -145,6 +163,22 @@ pytest
 GitHub Actions workflow (`.github/workflows/ci.yml`) runs:
 - backend pytest suite
 - frontend production build
+
+## Cloud Deployment (Render Blueprint)
+
+This repo includes [`render.yaml`](./render.yaml) for one-click infrastructure on Render:
+- `taskflow-db` (Postgres)
+- `taskflow-api` (Docker web service)
+- `taskflow-web` (static frontend with SPA rewrite)
+
+### Deploy steps
+1. In Render dashboard, choose **New > Blueprint**.
+2. Connect your GitHub repo `ramprakashyallavula/taskflow.ai`.
+3. Apply the Blueprint from `render.yaml`.
+4. Set Blueprint prompts:
+   - `VITE_API_BASE_URL`: `https://<your-taskflow-api>.onrender.com/api/v1`
+   - `CORS_ORIGINS`: `https://<your-taskflow-web>.onrender.com,http://localhost:5173`
+   - `OPENAI_API_KEY`: optional (app still works with mock AI responses if blank)
 
 ## Resume Bullets (Ready to Use)
 - Built **TaskFlow AI**, a full-stack productivity SaaS using FastAPI, PostgreSQL, React, and TypeScript with secure JWT auth and user-scoped CRUD APIs.
