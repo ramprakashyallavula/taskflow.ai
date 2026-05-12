@@ -25,8 +25,10 @@ export function TaskFormModal({ open, onClose, onSubmit, projects, initial }: Ta
 
   useEffect(() => {
     if (initial) {
+      const normalizedStatus = initial.status === 'done' ? 'in_progress' : initial.status;
       setForm({
         ...initial,
+        status: normalizedStatus,
         due_date: initial.due_date ? initial.due_date.slice(0, 16) : ''
       });
     } else {
@@ -77,7 +79,6 @@ export function TaskFormModal({ open, onClose, onSubmit, projects, initial }: Ta
           >
             <option value="todo">To do</option>
             <option value="in_progress">In progress</option>
-            <option value="done">Done</option>
           </select>
 
           <select

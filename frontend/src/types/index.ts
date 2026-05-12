@@ -5,6 +5,9 @@ export interface User {
   id: number;
   email: string;
   full_name: string;
+  mobile_number?: string | null;
+  auth_provider: string;
+  is_email_verified: boolean;
   is_active: boolean;
   created_at: string;
 }
@@ -13,6 +16,12 @@ export interface AuthResponse {
   access_token: string;
   token_type: string;
   user: User;
+}
+
+export interface MessageResponse {
+  message: string;
+  debug_code?: string | null;
+  debug_reset_link?: string | null;
 }
 
 export interface Project {

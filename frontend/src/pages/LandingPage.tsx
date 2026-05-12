@@ -1,4 +1,5 @@
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const benefits = [
@@ -9,12 +10,12 @@ const benefits = [
 
 export function LandingPage() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-cyan-50 to-orange-50 px-6">
-      <div className="absolute -left-14 top-20 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
-      <div className="absolute -right-10 bottom-10 h-72 w-72 rounded-full bg-orange-400/20 blur-3xl" />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 tf-grid-overlay">
+      <div className="tf-orb absolute -left-14 top-20 h-72 w-72 rounded-full bg-cyan-400/35" />
+      <div className="tf-orb tf-orb-delay absolute -right-10 bottom-10 h-72 w-72 rounded-full bg-cyan-400/30" />
       <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-2">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-teal-600">TaskFlow AI</p>
+        <motion.div initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.45 }}>
+          <p className="tf-label text-teal-700">TaskFlow AI</p>
           <h1 className="mt-4 text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl">
             Build your day with <span className="text-teal-600">clarity</span> and AI momentum.
           </h1>
@@ -22,20 +23,22 @@ export function LandingPage() {
             A modern productivity SaaS for planning, execution, and measurable progress.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white"
-            >
+            <Link to="/register" className="tf-btn-primary gap-2 px-5 py-3">
               Get Started
               <ArrowRight size={16} />
             </Link>
-            <Link to="/login" className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-800">
+            <Link to="/login" className="rounded-xl border border-slate-300 bg-white/70 px-5 py-3 font-semibold text-slate-800">
               Sign In
             </Link>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-soft backdrop-blur">
+        <motion.div
+          initial={{ opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="tf-panel rounded-3xl p-8"
+        >
           <h2 className="text-xl font-bold text-slate-900">Why it stands out</h2>
           <div className="mt-6 space-y-4">
             {benefits.map((benefit) => (
@@ -45,7 +48,7 @@ export function LandingPage() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

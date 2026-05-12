@@ -3,9 +3,16 @@
 @tailwind utilities;
 
 :root {
+  --tf-bg: #edf2f7;
+  --tf-ink: #0f172a;
+  --tf-muted: #5b667a;
+  --tf-surface: rgba(255, 255, 255, 0.82);
+  --tf-border: rgba(15, 23, 42, 0.08);
+  --tf-accent: #0f766e;
+  --tf-accent-soft: #d8faf4;
+  --tf-shadow: 0 28px 54px -36px rgba(15, 23, 42, 0.45);
+  color: var(--tf-ink);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  color: #101a28;
-  background: radial-gradient(circle at 10% 10%, #eef4ff 0%, #f5f7fa 36%, #f5f7fa 100%);
 }
 
 * {
@@ -15,11 +22,34 @@
 body {
   margin: 0;
   min-height: 100vh;
-  color: #101a28;
+  color: var(--tf-ink);
+  background:
+    radial-gradient(circle at 8% 14%, rgba(15, 118, 110, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 15%, rgba(14, 165, 233, 0.16), transparent 28%),
+    radial-gradient(circle at 78% 82%, rgba(56, 189, 248, 0.14), transparent 30%),
+    linear-gradient(145deg, #edf2f7 0%, #f7fafc 45%, #edf2f7 100%);
+  background-attachment: fixed;
 }
 
 #root {
   min-height: 100vh;
+}
+
+.tf-grid-overlay {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.tf-orb {
+  filter: blur(22px);
+  opacity: 0.7;
+  animation: tfFloat 8s ease-in-out infinite;
+}
+
+.tf-orb-delay {
+  animation-delay: -3s;
 }
 
 .scrollbar-thin {
@@ -34,4 +64,61 @@ body {
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background: #94a3b8;
   border-radius: 999px;
+}
+
+@layer components {
+  .tf-panel {
+    @apply rounded-3xl border p-5 backdrop-blur;
+    border-color: var(--tf-border);
+    background: linear-gradient(160deg, var(--tf-surface) 0%, rgba(255, 255, 255, 0.72) 100%);
+    box-shadow: var(--tf-shadow);
+  }
+
+  .tf-card {
+    @apply rounded-2xl border p-4 transition-all duration-300;
+    border-color: var(--tf-border);
+    background: rgba(255, 255, 255, 0.78);
+  }
+
+  .tf-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 34px -28px rgba(15, 23, 42, 0.55);
+  }
+
+  .tf-label {
+    @apply text-xs font-semibold uppercase tracking-[0.18em];
+    color: var(--tf-muted);
+  }
+
+  .tf-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200;
+    background: linear-gradient(135deg, #0f172a 0%, #233148 100%);
+    box-shadow: 0 12px 24px -18px rgba(15, 23, 42, 0.9);
+  }
+
+  .tf-btn-primary:hover {
+    transform: translateY(-1px);
+  }
+
+  .tf-btn-accent {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200;
+    background: linear-gradient(135deg, var(--tf-accent) 0%, #14b8a6 100%);
+    box-shadow: 0 12px 24px -18px rgba(15, 118, 110, 0.95);
+  }
+
+  .tf-btn-warm {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold text-white transition-all duration-200;
+    background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+    box-shadow: 0 12px 24px -18px rgba(14, 165, 233, 0.95);
+  }
+}
+
+@keyframes tfFloat {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-14px) scale(1.02);
+  }
 }

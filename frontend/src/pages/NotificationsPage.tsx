@@ -29,8 +29,8 @@ export function NotificationsPage() {
       {notifications.map((notification) => (
         <article
           key={notification.id}
-          className={`rounded-2xl border p-5 shadow-soft ${
-            notification.is_read ? 'border-slate-200 bg-white' : 'border-teal-200 bg-teal-50/50'
+          className={`tf-card p-5 ${
+            notification.is_read ? 'border-slate-200 bg-white/80' : 'border-teal-200 bg-teal-50/70'
           }`}
         >
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
@@ -44,7 +44,7 @@ export function NotificationsPage() {
             {!notification.is_read && (
               <button
                 onClick={() => readMutation.mutate(notification.id)}
-                className="rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white"
+                className="tf-btn-primary px-3 py-2 text-xs"
               >
                 Mark read
               </button>

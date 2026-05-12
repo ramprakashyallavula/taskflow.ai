@@ -35,16 +35,16 @@ export function DashboardPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+        <section className="tf-panel p-6">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-900">Recent Tasks</h2>
-            <Link to="/tasks" className="text-sm font-semibold text-teal-600">
+            <Link to="/tasks" className="text-sm font-semibold text-teal-700">
               Manage
             </Link>
           </div>
           <div className="space-y-3">
             {recentTasks.map((task) => (
-              <article key={task.id} className="rounded-xl border border-slate-200 p-4">
+              <article key={task.id} className="tf-card">
                 <p className="font-semibold text-slate-900">{task.title}</p>
                 <p className="text-xs text-slate-500">
                   {task.status.replace('_', ' ')} • {task.priority}
@@ -55,7 +55,7 @@ export function DashboardPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
+        <section className="tf-panel p-6">
           <h2 className="text-lg font-bold text-slate-900">Focus Suggestions</h2>
           <ul className="mt-4 space-y-3 text-sm text-slate-600">
             <li>Block two uninterrupted deep-work windows today.</li>

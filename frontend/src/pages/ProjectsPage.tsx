@@ -51,13 +51,13 @@ export function ProjectsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-900">Projects</h2>
+        <h2 className="text-2xl font-extrabold text-slate-900">Projects</h2>
         <button
           onClick={() => {
             setEditing(null);
             setOpen(true);
           }}
-          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+          className="tf-btn-primary gap-2"
         >
           <FolderPlus size={16} /> New project
         </button>
@@ -65,7 +65,7 @@ export function ProjectsPage() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {projects.map((project) => (
-          <article key={project.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+          <article key={project.id} className="tf-card rounded-2xl p-5">
             <h3 className="text-lg font-semibold text-slate-900">{project.name}</h3>
             <p className="mt-2 text-sm text-slate-600">{project.description || 'No description yet.'}</p>
             <div className="mt-4 flex gap-2">
@@ -74,13 +74,13 @@ export function ProjectsPage() {
                   setEditing(project);
                   setOpen(true);
                 }}
-                className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700"
+                className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700"
               >
                 <Pencil size={14} /> Edit
               </button>
               <button
                 onClick={() => deleteMutation.mutate(project.id)}
-                className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-3 py-1.5 text-xs font-semibold text-red-700"
+                className="inline-flex items-center gap-1 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700"
               >
                 <Trash2 size={14} /> Delete
               </button>

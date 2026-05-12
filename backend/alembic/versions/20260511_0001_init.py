@@ -22,9 +22,6 @@ task_priority = sa.Enum("low", "medium", "high", name="task_priority")
 
 
 def upgrade() -> None:
-    task_status.create(op.get_bind(), checkfirst=True)
-    task_priority.create(op.get_bind(), checkfirst=True)
-
     op.create_table(
         "users",
         sa.Column("id", sa.Integer(), primary_key=True),

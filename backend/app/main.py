@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
-from app.database import Base, engine
 from app.notifications.scheduler import start_scheduler, stop_scheduler
 from app.routes import ai, analytics, auth, notifications, projects, tasks, users
 
@@ -13,7 +12,6 @@ settings = get_settings()
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    Base.metadata.create_all(bind=engine)
     if not settings.testing:
         start_scheduler()
     yield

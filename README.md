@@ -72,6 +72,10 @@ cp .env.example .env
 
 Update `.env` values (`DATABASE_URL`, `SECRET_KEY`, optional `OPENAI_API_KEY`).
 
+Cost-free AI modes:
+- `AI_PROVIDER=mock` (default, no external API usage)
+- `AI_PROVIDER=ollama` (free local LLM on your machine)
+
 Run migrations:
 ```bash
 alembic upgrade head
@@ -81,6 +85,20 @@ Run API:
 ```bash
 uvicorn app.main:app --reload
 ```
+
+### Optional: Free Local AI With Ollama
+1. Install Ollama from [https://ollama.com](https://ollama.com)
+2. Pull a model:
+```bash
+ollama pull llama3.1:8b
+```
+3. Set in `backend/.env`:
+```env
+AI_PROVIDER=ollama
+OLLAMA_BASE_URL=http://host.docker.internal:11434
+OLLAMA_MODEL=llama3.1:8b
+```
+4. Restart backend (or Docker stack).
 
 ### 3) Frontend setup
 ```bash

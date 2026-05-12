@@ -37,7 +37,7 @@ export function AnalyticsPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+        <section className="tf-panel p-5">
           <h3 className="mb-4 text-lg font-semibold text-slate-900">Tasks by Status</h3>
           <div className="h-72">
             <ResponsiveContainer>
@@ -45,7 +45,7 @@ export function AnalyticsPage() {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis allowDecimals={false} />
-                <Tooltip />
+                <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid rgba(15,23,42,0.12)' }} />
                 <Legend />
                 <Bar dataKey="value" fill="#0ea5a4" radius={[6, 6, 0, 0]} />
               </BarChart>
@@ -53,13 +53,13 @@ export function AnalyticsPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft">
+        <section className="tf-panel p-5">
           <h3 className="mb-4 text-lg font-semibold text-slate-900">Priority Distribution</h3>
           <div className="h-72">
             <ResponsiveContainer>
               <PieChart>
                 <Pie data={priorityData} dataKey="value" nameKey="name" outerRadius={110} fill="#f97316" label />
-                <Tooltip />
+                <Tooltip contentStyle={{ borderRadius: 12, border: '1px solid rgba(15,23,42,0.12)' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>

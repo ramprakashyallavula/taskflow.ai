@@ -13,11 +13,11 @@ export function StatCard({
     <motion.article
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft"
+      className="tf-panel rounded-2xl p-5"
     >
-      <p className="text-sm text-slate-500">{title}</p>
-      <p className="mt-2 text-3xl font-bold text-slate-900">{value}</p>
-      <p className="mt-2 text-xs text-slate-500">{hint}</p>
+      <p className="tf-label">{title}</p>
+      <p className="mt-2 text-3xl font-extrabold text-slate-900">{value}</p>
+      <p className="mt-2 text-xs text-slate-600">{hint}</p>
     </motion.article>
   );
 }

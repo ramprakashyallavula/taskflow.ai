@@ -46,13 +46,24 @@ def client() -> TestClient:
     return TestClient(app)
 
 
+def register_and_login(client: TestClient, email: str, full_name: str = "Test User", password: str = "password123") -> str:
+    register_payload = {
+        "email": email,
+        "full_name": full_name,
+        "mobile_number": "5551234567",
+        "password": password,
+    }
+    register_response = client.post("/api/v1/auth/register", json=register_payload)
+    assert register_response.status_code == 201
+    code = register_response.json().get("debug_code")
+    assert code
+
+    verify_response = client.post("/api/v1/auth/register/verify", json={"email": email, "code": code})
+    assert verify_response.status_code == 200
+    return verify_response.json()["access_token"]
+
+
 @pytest.fixture
 def auth_headers(client: TestClient) -> dict[str, str]:
-    payload = {
-        "email": "user@example.com",
-        "full_name": "Test User",
-        "password": "password123",
-    }
-    response = client.post("/api/v1/auth/register", json=payload)
-    token = response.json()["access_token"]
+    token = register_and_login(client, email="user@example.com")
     return {"Authorization": f"Bearer {token}"}
