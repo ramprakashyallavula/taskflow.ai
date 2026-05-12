@@ -230,6 +230,9 @@ def verify_registration(payload: VerifyRegistrationCode, db: Session = Depends(g
 def login(payload: UserLogin, db: Session = Depends(get_db)) -> AuthResponse:
     user = db.query(User).filter(User.email == payload.email.lower()).first()
     if not user or not user.hashed_password or not verify_password(payload.password, user.hashed_password):
+        pending = db.query(EmailVerificationCode).filter(EmailVerificationCode.email == payload.email.lower()).first()
+        if pending and pending.expires_at >= datetime.utcnow():
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Please verify your email before signing in")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Wrong email or password")
 
     if not user.is_email_verified:
